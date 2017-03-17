@@ -50,6 +50,21 @@ class MenuS: SKScene
                 }
                 self.run(SKAction.sequence([wait, run]))
             }
+            if node.name == "L"
+            {
+                let wait = SKAction.wait(forDuration: 0)
+                let run = SKAction.run{
+                    
+                    let scene = SKScene(fileNamed: "LeaderB")
+                    
+                    scene?.scaleMode = .aspectFill
+                    
+                    // Present the scene
+                    self.view?.presentScene(scene!)
+                    
+                }
+                self.run(SKAction.sequence([wait, run]))
+            }
             if node.name == "C"
             {
                 //make random directions every 5 sec

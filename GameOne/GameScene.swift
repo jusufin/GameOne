@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameplayKit
+import Social
 
 class GameScene: SKScene, SKPhysicsContactDelegate
 {
@@ -25,14 +26,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var startB: SKLabelNode = SKLabelNode()
     var restartB: SKLabelNode = SKLabelNode()
     var ScoreL: SKLabelNode = SKLabelNode()
+    var SaveL: SKLabelNode = SKLabelNode()
+    var TweetL: SKLabelNode = SKLabelNode()
     var ExitB: SKLabelNode = SKLabelNode()
     var t1: SKLabelNode = SKLabelNode()
     var t2: SKLabelNode = SKLabelNode()
     var t3: SKLabelNode = SKLabelNode()
     var PauseB: SKSpriteNode = SKSpriteNode()
     var backB: SKSpriteNode = SKSpriteNode()
-    
-    
     var body_array:[SKSpriteNode] = []
     var point_array:[CGPoint] = []
     var dir_array: [String] = []
@@ -52,10 +53,39 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var ifPaused: Bool = false
     var Score = 0
     var Dir = ""
-    
+    var UserN: String?
+    var nameExists: Bool = false
     
     override func didMove(to view: SKView)
     {
+        //check for session Id and if exists then continue on - otherwise go to login
+        let defaults = UserDefaults.standard
+        let NameOfUser = defaults.string(forKey: "name")
+        
+        if NameOfUser != nil
+        {
+            UserN = NameOfUser
+            print(NameOfUser!)
+            nameExists = true
+        }
+        else
+        {
+            print("id nil")
+        }
+        
+        /*
+        let id = defaults.string(forKey: "id")
+         
+        if id != nil
+        {
+            getUserName(ID: id!)
+        }
+        else
+        {
+            print("id nil")
+        }
+        */
+        
         
         //get sprites / add collision / animate sprites
         if let nPlayer:SKSpriteNode = self.childNode(withName: "MainCR") as? SKSpriteNode
@@ -67,6 +97,15 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             sprite_Char.physicsBody?.contactTestBitMask = WallCategory | EnemyCategory
             sprite_Char.isHidden = true
             
+        }
+        if let SaveD:SKLabelNode = self.childNode(withName: "S") as? SKLabelNode
+        {
+            //collision detection
+            SaveL = SaveD
+        }
+        if let sD:SKLabelNode = self.childNode(withName: "T") as? SKLabelNode
+        {
+            TweetL = sD
         }
         if let bgr:SKSpriteNode = self.childNode(withName: "Back") as? SKSpriteNode
         {
@@ -150,6 +189,34 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         view.addGestureRecognizer(downSwipe)
         
     }
+    
+    func getUserName(ID: String)
+    {
+        let sessionId  = ID
+        print(sessionId)
+        
+        App42API.initialize(withAPIKey: "1ef91372d294afd33ed12095e845d20a6fd9e41be1f920f1bf7952916dace0c9", andSecretKey: "f5df9415ca972351535cab425a3aedc488799b990437efd061fc764b6fddd785")
+        
+        let sessionService :SessionService? = App42API.buildSessionService() as! SessionService?
+        
+        sessionService?.getAllAttributes(sessionId, completionBlock: { (success, response, exception) ->Void in
+            if (success)
+            {
+                let session = response as! Session
+                NSLog("%@",session.userName)
+                NSLog("%@",session.sessionId)
+                self.UserN = session.userName
+                self.nameExists = true
+            }
+            else
+            {
+                print(exception?.reason ?? String.self)
+                print(exception?.appErrorCode ?? String.self)
+                print(exception?.httpErrorCode ?? String.self)
+                print(exception?.userInfo! ?? String.self)
+            }     
+        })
+    }
    
     //get direction of swipe and set data to the direction / will be used by MoveC method to determine player/body movement
     func hS(sender: UISwipeGestureRecognizer)
@@ -226,10 +293,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     
     // when player collides with a wall, pickup, or border - this will run and give a gameover or a point depending on collision
     func didBegin(_ contact: SKPhysicsContact)
-    {
-        
+    {        
         //pickup contact
-        if (contact.bodyA.categoryBitMask == PlayerCategory) && (contact.bodyB.categoryBitMask == PickupCategory)
+        if (contact.bodyA.categoryBitMask == PlayerCategory) && (contact.bodyB.categoryBitMask == PickupCategory) || (contact.bodyB.categoryBitMask == PlayerCategory) && (contact.bodyA.categoryBitMask == PickupCategory)
         {
             run(sound2)
             Score = Score + 1
@@ -414,6 +480,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ScoreL.isHidden = true
             PauseB.isHidden = true
             ExitB.isHidden = false
+            SaveL.isHidden = false
+            TweetL.isHidden = false
             
             if !(body_array.isEmpty)
             {
@@ -441,6 +509,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             ScoreL.isHidden = true
             PauseB.isHidden = true
             ExitB.isHidden = false
+            SaveL.isHidden = false
+            TweetL.isHidden = false
             
             if !(body_array.isEmpty)
             {
@@ -588,10 +658,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 startB.isHidden = false
                 PauseB.isHidden = true
                 ExitB.isHidden = true
+                SaveL.isHidden = true
                 t1.isHidden = false
                 t2.isHidden = false
                 t3.isHidden = false
-                
+                TweetL.isHidden = true
                 ifPaused = false
                 run(sound)
                 moving = false
@@ -613,6 +684,19 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                         self.view?.presentScene(scene!)
                     }
                 self.run(SKAction.sequence([wait, run2]))
+            }
+            if node.name == "S"
+            {
+                //Save data here
+                if nameExists == true
+                {
+                    print("save")
+                    SaveScore(NameU: UserN!)
+                }
+            }
+            if node.name == "T"
+            {
+                showTweet()
             }
         }
     }
@@ -680,6 +764,63 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         }
     }
   
+    //create session id for and save to user defaults for login data
+    //save a user score
+    func SaveScore(NameU: String)
+    {
+        
+        //build service
+        let scoreBoardService = App42API.buildScoreBoardService() as? ScoreBoardService
+        
+        //save score
+        let gameName = "GameOne"
+        let userName = NameU
+        let gameScore:Double = Double(Score)
+        App42API.initialize(withAPIKey: "1ef91372d294afd33ed12095e845d20a6fd9e41be1f920f1bf7952916dace0c9", andSecretKey: "f5df9415ca972351535cab425a3aedc488799b990437efd061fc764b6fddd785")
+        
+        scoreBoardService?.saveUserScore(gameName, gameUserName:userName, gameScore:gameScore, completionBlock: { (success, response, exception) -> Void in
+            if(success)
+            {
+                let game = response as! Game
+                NSLog("gameName is %@", game.name)
+                self.SaveL.isHidden = true                
+                let alertController = UIAlertController(title: "Save", message: "Save Complete", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+                alertController.addAction(defaultAction)
+                self.view?.window?.rootViewController?.present(alertController, animated: true, completion: nil)
+            }
+            else
+            {
+                print(exception?.reason ?? String.self)
+                print(exception?.appErrorCode ?? String.self)
+                print(exception?.httpErrorCode ?? String.self)
+                print(exception?.userInfo! ?? String.self)
+            }
+        })
+    }
+    
+    func showTweet()
+    {
+        let tweet = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+        tweet?.completionHandler =
+            {
+            result in
+            switch result
+            {
+            case SLComposeViewControllerResult.cancelled:
+                break
+            case SLComposeViewControllerResult.done:
+                self.TweetL.isHidden = true
+                break
+            }
+        }
+        
+        tweet?.setInitialText("\(UserN!) just got \(Score) points in Brick Collect!") //The default text in the tweet
+        self.view?.window?.rootViewController!.present(tweet!, animated: false, completion:{
+            //Optional completion statement
+        })
+    }
+    
     
     override func update(_ currentTime: TimeInterval)
     {

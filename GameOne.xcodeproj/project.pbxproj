@@ -20,6 +20,14 @@
 		CA4903031E44260900AD3B2B /* GameOneUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA4903021E44260900AD3B2B /* GameOneUITests.swift */; };
 		CA4903171E443E1B00AD3B2B /* m.wav in Resources */ = {isa = PBXBuildFile; fileRef = CA4903161E443E1B00AD3B2B /* m.wav */; };
 		CA4903191E443E3200AD3B2B /* G.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = CA4903181E443E3200AD3B2B /* G.mp3 */; };
+		CA6FEBDB1E7B288A001926D9 /* CreateUser.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA6FEBDA1E7B288A001926D9 /* CreateUser.sks */; };
+		CA6FEBDD1E7B28DF001926D9 /* CreateUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6FEBDC1E7B28DF001926D9 /* CreateUser.swift */; };
+		CA6FEBDF1E7B3075001926D9 /* Shephertz_App42_iOS_API.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FEBDE1E7B3075001926D9 /* Shephertz_App42_iOS_API.framework */; };
+		CA6FEBE21E7B309B001926D9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FEBE11E7B309B001926D9 /* CoreTelephony.framework */; };
+		CA6FEBE41E7B30A8001926D9 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FEBE31E7B30A8001926D9 /* SystemConfiguration.framework */; };
+		CA6FEBEB1E7B56CD001926D9 /* LeaderB.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA6FEBEA1E7B56CD001926D9 /* LeaderB.sks */; };
+		CA6FEBED1E7B56E2001926D9 /* LeaderB.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA6FEBEC1E7B56E2001926D9 /* LeaderB.swift */; };
+		CA6FEBEF1E7B7F0B001926D9 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA6FEBEE1E7B7F0B001926D9 /* Social.framework */; };
 		CA75F1D81E569874009F6398 /* ae.atlasc in Resources */ = {isa = PBXBuildFile; fileRef = CA75F1D71E569874009F6398 /* ae.atlasc */; };
 		CA75F1DC1E5FCCD3009F6398 /* SplashS.sks in Resources */ = {isa = PBXBuildFile; fileRef = CA75F1DB1E5FCCD3009F6398 /* SplashS.sks */; };
 		CA75F1DE1E5FCFF5009F6398 /* SplashS.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA75F1DD1E5FCFF5009F6398 /* SplashS.swift */; };
@@ -66,6 +74,15 @@
 		CA4903041E44260900AD3B2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CA4903161E443E1B00AD3B2B /* m.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = m.wav; sourceTree = "<group>"; };
 		CA4903181E443E3200AD3B2B /* G.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = G.mp3; sourceTree = "<group>"; };
+		CA6FEBDA1E7B288A001926D9 /* CreateUser.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CreateUser.sks; sourceTree = "<group>"; };
+		CA6FEBDC1E7B28DF001926D9 /* CreateUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateUser.swift; sourceTree = "<group>"; };
+		CA6FEBDE1E7B3075001926D9 /* Shephertz_App42_iOS_API.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Shephertz_App42_iOS_API.framework; path = GameOne/Shephertz_App42_iOS_API.framework; sourceTree = "<group>"; };
+		CA6FEBE11E7B309B001926D9 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		CA6FEBE31E7B30A8001926D9 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		CA6FEBE61E7B31FC001926D9 /* GameOne-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GameOne-Bridging-Header.h"; sourceTree = "<group>"; };
+		CA6FEBEA1E7B56CD001926D9 /* LeaderB.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = LeaderB.sks; sourceTree = "<group>"; };
+		CA6FEBEC1E7B56E2001926D9 /* LeaderB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderB.swift; sourceTree = "<group>"; };
+		CA6FEBEE1E7B7F0B001926D9 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		CA75F1D71E569874009F6398 /* ae.atlasc */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ae.atlasc; sourceTree = "<group>"; };
 		CA75F1DB1E5FCCD3009F6398 /* SplashS.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = SplashS.sks; sourceTree = "<group>"; };
 		CA75F1DD1E5FCFF5009F6398 /* SplashS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashS.swift; sourceTree = "<group>"; };
@@ -80,6 +97,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA6FEBEF1E7B7F0B001926D9 /* Social.framework in Frameworks */,
+				CA6FEBE41E7B30A8001926D9 /* SystemConfiguration.framework in Frameworks */,
+				CA6FEBE21E7B309B001926D9 /* CoreTelephony.framework in Frameworks */,
+				CA6FEBDF1E7B3075001926D9 /* Shephertz_App42_iOS_API.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -107,6 +128,7 @@
 				CA4902F61E44260900AD3B2B /* GameOneTests */,
 				CA4903011E44260900AD3B2B /* GameOneUITests */,
 				CA4902DA1E44260800AD3B2B /* Products */,
+				CA6FEBE01E7B309B001926D9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -127,6 +149,8 @@
 				CA75F1E31E5FD475009F6398 /* GameS */,
 				CA75F1E11E5FD1F4009F6398 /* MenuS.swift */,
 				CA75F1E61E5FE5B7009F6398 /* Credits.swift */,
+				CA6FEBEC1E7B56E2001926D9 /* LeaderB.swift */,
+				CA6FEBDC1E7B28DF001926D9 /* CreateUser.swift */,
 				CA75F1DD1E5FCFF5009F6398 /* SplashS.swift */,
 				CA4902E21E44260800AD3B2B /* GameScene.swift */,
 				CA4902E41E44260800AD3B2B /* GameViewController.swift */,
@@ -138,6 +162,7 @@
 				CA1FAA291E4E127800073A53 /* z.wav */,
 				CA4902EB1E44260900AD3B2B /* LaunchScreen.storyboard */,
 				CA4902EE1E44260900AD3B2B /* Info.plist */,
+				CA6FEBE61E7B31FC001926D9 /* GameOne-Bridging-Header.h */,
 			);
 			path = GameOne;
 			sourceTree = "<group>";
@@ -160,6 +185,17 @@
 			path = GameOneUITests;
 			sourceTree = "<group>";
 		};
+		CA6FEBE01E7B309B001926D9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CA6FEBEE1E7B7F0B001926D9 /* Social.framework */,
+				CA6FEBDE1E7B3075001926D9 /* Shephertz_App42_iOS_API.framework */,
+				CA6FEBE31E7B30A8001926D9 /* SystemConfiguration.framework */,
+				CA6FEBE11E7B309B001926D9 /* CoreTelephony.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CA75F1E31E5FD475009F6398 /* GameS */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,6 +204,8 @@
 				CA75F1DF1E5FD1D0009F6398 /* MenuS.sks */,
 				CA4902E01E44260800AD3B2B /* Actions.sks */,
 				CA75F1E41E5FE564009F6398 /* Credits.sks */,
+				CA6FEBDA1E7B288A001926D9 /* CreateUser.sks */,
+				CA6FEBEA1E7B56CD001926D9 /* LeaderB.sks */,
 			);
 			name = GameS;
 			sourceTree = "<group>";
@@ -240,6 +278,7 @@
 				TargetAttributes = {
 					CA4902D81E44260800AD3B2B = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					CA4902F21E44260900AD3B2B = {
@@ -289,8 +328,10 @@
 				CA1FAA2A1E4E127800073A53 /* z.wav in Resources */,
 				CA4902EA1E44260900AD3B2B /* Assets.xcassets in Resources */,
 				CA4902ED1E44260900AD3B2B /* LaunchScreen.storyboard in Resources */,
+				CA6FEBDB1E7B288A001926D9 /* CreateUser.sks in Resources */,
 				CA4903191E443E3200AD3B2B /* G.mp3 in Resources */,
 				CA4902E11E44260800AD3B2B /* Actions.sks in Resources */,
+				CA6FEBEB1E7B56CD001926D9 /* LeaderB.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +362,8 @@
 				CA75F1DE1E5FCFF5009F6398 /* SplashS.swift in Sources */,
 				CA75F1E71E5FE5B7009F6398 /* Credits.swift in Sources */,
 				CA4902DD1E44260800AD3B2B /* AppDelegate.swift in Sources */,
+				CA6FEBDD1E7B28DF001926D9 /* CreateUser.swift in Sources */,
+				CA6FEBED1E7B56E2001926D9 /* LeaderB.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,11 +513,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GameOne",
+				);
 				INFOPLIST_FILE = GameOne/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.GameOne.GameOne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GameOne/GameOne-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -484,11 +534,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/GameOne",
+				);
 				INFOPLIST_FILE = GameOne/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.GameOne.GameOne;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GameOne/GameOne-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
