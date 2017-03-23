@@ -56,6 +56,20 @@ class GameScene: SKScene, SKPhysicsContactDelegate
     var UserN: String?
     var nameExists: Bool = false
     
+    var AchData = [String]()
+    
+    var completionA : String = "First Point"
+    var incrementA : String = "5 Points"
+    var increment2A : String = "10 Points"
+    var increment3A : String = "20 Points"
+    var measureA : String = "Really"
+    var negA : String = "Try Harder"
+    var neg2A : String = "Dumb Dumb"
+    
+    var timerRun: Bool = false
+    var Timer = 0
+    
+    
     override func didMove(to view: SKView)
     {
         //check for session Id and if exists then continue on - otherwise go to login
@@ -303,6 +317,49 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             pBar.isHidden = true
             pBar.physicsBody?.categoryBitMask = 0
             
+            //Create Achievment
+            if nameExists == true && Score > 20 && Timer > 30
+            {
+                addAchievement(nameU: UserN!, titleA: measureA, descA: "Hard to kill!")
+            }
+            
+            //reset timer on pickup
+            if timerRun
+            {
+                timerRun = false
+                self.removeAction(forKey: "Action")
+                Timer = 0
+            }
+            
+            //create timer
+            let waitT = SKAction.wait(forDuration:1.0)
+            let actionT = SKAction.run{
+                self.Timer = self.Timer + 1
+                print("timer :::: \(self.Timer)")
+            }
+            
+            //run(SKAction.sequence([waitT,actionT]), withKey: "Action")
+            run(SKAction.repeatForever(SKAction.sequence([waitT, actionT])), withKey: "Action")
+            timerRun = true
+            
+            
+            //Create Achievment
+            if nameExists == true && Score > 4
+            {
+                addAchievement(nameU: UserN!, titleA: incrementA, descA: "5 Points!")
+            }
+            //Create Achievment
+            if nameExists == true && Score > 9
+            {
+                addAchievement(nameU: UserN!, titleA: increment2A, descA: "10 Points!")
+            }
+            //Create Achievment
+            if nameExists == true && Score > 19
+            {
+                addAchievement(nameU: UserN!, titleA: increment3A, descA: "20 Points!")
+            }
+            
+            
             let spawn_loc_y = randomNum(fNum: -160, sNum: 120)
             let spawn_loc_x = randomNum(fNum: -300, sNum: 300)
             
@@ -310,6 +367,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             pBar.run(action)
             pBar.isHidden = false
             pBar.physicsBody?.categoryBitMask = PickupCategory
+            
+            //Create Achievment
+            if nameExists == true
+            {
+                addAchievement(nameU: UserN!, titleA: completionA, descA: "Congradulations on your first point!")
+            }
             
             // Create sprite
             switch Dir
@@ -483,6 +546,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             SaveL.isHidden = false
             TweetL.isHidden = false
             
+            if timerRun
+            {
+                timerRun = false
+                self.removeAction(forKey: "Action")
+                Timer = 0
+            }
+            
             if !(body_array.isEmpty)
             {
                 for (_, _) in body_array.enumerated()
@@ -491,7 +561,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 }
             }
             
-            
+            //Create Achievment
+            if nameExists == true && Score < 1
+            {
+                addAchievement(nameU: UserN!, titleA: neg2A, descA: "Your not even trying are you?")
+            }
             
             self.removeAllActions()
             
@@ -512,12 +586,25 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             SaveL.isHidden = false
             TweetL.isHidden = false
             
+            if timerRun
+            {
+                timerRun = false
+                self.removeAction(forKey: "Action")
+                Timer = 0
+            }
+            
             if !(body_array.isEmpty)
             {
                 for (_, _) in body_array.enumerated()
                 {
                     removeChildren(in: body_array)
                 }
+            }
+            
+            //Create Achievment
+            if nameExists == true && Score < 2
+            {
+                addAchievement(nameU: UserN!, titleA: negA, descA: "Avoid enemies!")
             }
             
             self.removeAllActions()
@@ -609,6 +696,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                     moving = false
                     ExitB.isHidden = false
                     
+                    //pause timer
+                    if let action = action(forKey: "Action") {
+                        
+                        action.speed = 0
+                    }
+                    
                     if let action = pBar.action(forKey: "moving")
                     {
                         action.speed = 0
@@ -620,6 +713,13 @@ class GameScene: SKScene, SKPhysicsContactDelegate
                 {
                     moving = true
                     ExitB.isHidden = true
+                    
+                    //unpause timer
+                    if let action = action(forKey: "Action")
+                    {
+                        
+                        action.speed = 1
+                    }
                     
                     if let action = pBar.action(forKey: "moving")
                     {
@@ -634,6 +734,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             //starts and restarts game
             if node.name == "Start"
             {
+                //create timer
+                let waitT = SKAction.wait(forDuration:1.0)
+                let actionT = SKAction.run{
+                    self.Timer = self.Timer + 1
+                }
+                run(SKAction.repeatForever(SKAction.sequence([waitT, actionT])), withKey: "Action")
+                timerRun = true
+               
                 //start settings
                 pBar.isHidden = false
                 ScoreL.isHidden = false
@@ -651,6 +759,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate
             if node.name == "Restart"
             {
                 //restart setting
+                AchData.removeAll()
                 pBar.isHidden = true
                 sprite_Char.isHidden = true
                 ScoreL.isHidden = true
@@ -818,6 +927,90 @@ class GameScene: SKScene, SKPhysicsContactDelegate
         tweet?.setInitialText("\(UserN!) just got \(Score) points in Brick Collect!") //The default text in the tweet
         self.view?.window?.rootViewController!.present(tweet!, animated: false, completion:{
             //Optional completion statement
+        })
+    }
+    
+    
+    //before I add anything I get every achievment and throw it into a array for comparision with the value I want to save. if it doesn't exist then I create it.
+    func addAchievement(nameU : String, titleA : String, descA : String)
+    {
+        let userName = nameU
+        let achievementName = titleA
+        let gameName = "GameOne"
+        let description = descA
+            
+        App42API.initialize(withAPIKey: "1ef91372d294afd33ed12095e845d20a6fd9e41be1f920f1bf7952916dace0c9", andSecretKey: "f5df9415ca972351535cab425a3aedc488799b990437efd061fc764b6fddd785")
+        
+        let achievementService = App42API.buildAchievementService() as? AchievementService
+        
+        achievementService?.getAllAchievements(forUser: userName, completionBlock:{ (success, response, exception) -> Void in
+            if(success)
+            {
+                let achievements = response as! NSArray
+                for achievement in achievements
+                {
+                    let AchValue = (achievement as AnyObject).name as String
+                    print(AchValue)
+                    self.AchData.append(AchValue)
+                }
+                if self.AchData.contains(achievementName)
+                {
+                    print(" Data exists and will not be created! ")
+                }
+                else
+                {
+                    //create achievment
+                    App42API.initialize(withAPIKey: "1ef91372d294afd33ed12095e845d20a6fd9e41be1f920f1bf7952916dace0c9", andSecretKey: "f5df9415ca972351535cab425a3aedc488799b990437efd061fc764b6fddd785")
+                    let achievementService = App42API.buildAchievementService() as? AchievementService
+                    
+                    achievementService?.earnAchievement(withName: achievementName, userName: userName, gameName: gameName, description: description, completionBlock:{ (success, response, exception) -> Void in
+                        
+                        if(success)
+                        {
+                            let achievement = response as! Achievement
+                            print(achievement)
+                        }
+                        else
+                        {
+                            print(exception?.reason ?? String.self)
+                            print(exception?.appErrorCode ?? String.self)
+                            print(exception?.httpErrorCode ?? String.self)
+                            print(exception?.userInfo! ?? String.self)
+                        }
+                    })
+                }
+            }
+            else
+            {
+                print(exception?.reason ?? String.self)
+                print(exception?.appErrorCode ?? String.self)
+                print(exception?.httpErrorCode ?? String.self)
+                print(exception?.userInfo! ?? String.self)
+                
+                //check for no achievments then create one
+                if(exception?.appErrorCode == 4803)
+                {
+                    App42API.initialize(withAPIKey: "1ef91372d294afd33ed12095e845d20a6fd9e41be1f920f1bf7952916dace0c9", andSecretKey: "f5df9415ca972351535cab425a3aedc488799b990437efd061fc764b6fddd785")
+                    let achievementService = App42API.buildAchievementService() as? AchievementService
+                    
+                    achievementService?.earnAchievement(withName: achievementName, userName: userName, gameName: gameName, description: description, completionBlock:{ (success, response, exception) -> Void in
+                        
+                        if(success)
+                        {
+                            let achievement = response as! Achievement
+                            print(achievement)
+                        }  
+                        else  
+                        {  
+                            print(exception?.reason ?? String.self)
+                            print(exception?.appErrorCode ?? String.self)
+                            print(exception?.httpErrorCode ?? String.self)
+                            print(exception?.userInfo! ?? String.self)
+                        }  
+                    })
+                    
+                }
+            }
         })
     }
     
